@@ -15,7 +15,7 @@ public static class NanoGenerator
         /// <summary>
         /// The Nano options containing the generated sets.
         /// </summary>
-        [JsonPropertyName("nanoOptions")]
+        [JsonPropertyName("NanoOptions")]
         public required NanoOptions NanoOptions { get; set; }
     }
 

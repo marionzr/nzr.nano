@@ -96,7 +96,7 @@ var configuration = new ConfigurationBuilder()
 var nanoOptions = configuration.GetSection("NanoOptions").Get<NanoOptions>();
 
 // Initialize Nano
-var nano = new Nano(nanoOptions);
+Nano.Initialze(nanoOptions);
 ```
 
 ---

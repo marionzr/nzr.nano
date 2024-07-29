@@ -15,7 +15,7 @@ public record NanoOptions
     /// - Character sets must have the same length as the placeholder character sets.
     /// - Each character in a character set should be unique and not overlap with characters in the corresponding placeholder set.
     /// </remarks>
-    [JsonPropertyName("characterSets")]
+    [JsonPropertyName("CharacterSets")]
     public required string[] CharacterSets { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ public record NanoOptions
     /// - Placeholder character sets must have the same length as the character sets.
     /// - Characters in a placeholder set must not overlap with characters in the corresponding character set.
     /// </remarks>
-    [JsonPropertyName("placeHolderCharSets")]
+    [JsonPropertyName("PlaceHolderCharSets")]
     public required string[] PlaceHolderCharSets { get; set; }
 
     /// <summary>
@@ -36,6 +36,6 @@ public record NanoOptions
     /// - The negative sign must not be present in any character set or placeholder character set.
     /// - If not explicitly specified, the default negative sign is a hyphen ("-").
     /// </remarks>
-    [JsonPropertyName("negativeSign")]
+    [JsonPropertyName("NegativeSign")]
     public string? NegativeSign { get; set; }
 }
