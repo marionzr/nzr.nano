@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Nzr.Nano.Generator;
 
 /// <summary>
@@ -13,6 +15,7 @@ public static class NanoGenerator
         /// <summary>
         /// The Nano options containing the generated sets.
         /// </summary>
+        [JsonPropertyName("nanoOptions")]
         public required NanoOptions NanoOptions { get; set; }
     }
 

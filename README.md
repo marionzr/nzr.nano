@@ -1,133 +1,160 @@
 # Nzr.Nano
 
-Nzr.Nano is a lightweight and configurable library designed for obfuscating and deobfuscating numeric values. It supports custom character and placeholder sets configurations, and negative sign handling, making it highly flexible for various use cases.
+Nzr.Nano is a lightweight and configurable library for obfuscating and deobfuscating numeric values. This project includes three key components:
 
-## Features
+1. **Nzr.Nano** - The core library for obfuscation and deobfuscation.
+2. **Nzr.Nano.Generator** - A tool to generate valid character and placeholder sets (charsets).
+3. **Nzr.Nano.Playground** - A web application to experiment with charset configurations and obfuscation/deobfuscation methods.
 
-- Obfuscation and deobfuscation of numeric values.
-- Configurable character sets for obfuscation.
-- Placeholder handling for shorter obfuscated values.
-- Support for negative numbers.
+---
 
-## Installation
+## Getting Started
 
-Install the NuGet package:
+### Installation
+To install the core Nzr.Nano library, use the NuGet Package Manager:
 
 ```bash
 Install-Package Nzr.Nano
 ```
 
-## Getting Started
+To use the generator and playground, clone the repository and build the respective projects.
 
-### Initialization
+---
 
-Nzr.Nano is a static class and requires initialization before use. You must provide character sets, placeholder sets, and a negative sign for obfuscation. Example:
+## Nzr.Nano.Generator
+
+![Nzr.Nano.Generator](assets/generator.png)
+
+### Overview
+`Nzr.Nano.Generator` is a class library/console application designed to help developers create valid character and placeholder sets for use with the Nzr.Nano library. The generated charsets can be saved in a configuration file (e.g., `appsettings.json`) and used to initialize `Nano` with `NanoOptions`.
+
+### How to Use
+
+#### Step 1: Generate Charsets
+You can generate charsets programmatically using the `NanoGenerator.Generate` method:
 
 ```csharp
+using Nzr.Nano.Generator;
+
+var settings = NanoGenerator.Generate();
+
+// Output the generated settings as JSON
+var json = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+Console.WriteLine(json);
+```
+
+This will output a JSON object containing valid `CharacterSets` and `PlaceHolderCharSets`.
+
+#### Step 2: Save Charsets to appsettings.json
+Copy the generated JSON and add it to your `appsettings.json` under a section named `NanoOptions`:
+
+```json
+{
+  "nanoOptions": {
+    "characterSets": [
+      "KP5Q7M431RXUYC9E8NWS2BT6J0",
+      "41UN087DVKZQ6X3BGES9WTMPJ2",
+      "3M0TD45PXESNQ7RFKUJVB92HCZ",
+      "E6JX7G1RYBWFCPZ85KQN0H423D",
+      "KX0UW3SC2EFDYT1QNZ9JRPB7V4",
+      "PF4NJGX10M8U7SWEZVYC359THQ",
+      "4CFJ1RBHM6KZT2WSG5Y30U8NQ7",
+      "2BHFTQW98C30RX6JUGZEY4N57M",
+      "U8QV14EDT25NBPWY36CFMJX9H7",
+      "YNXSFH4J8RCWMPU37QVGKB21D5"
+    ],
+    "placeHolderCharSets": [
+      "HGDVZF",
+      "YRCH5F",
+      "W61G8Y",
+      "UMTV9S",
+      "6GHM85",
+      "K6B2RD",
+      "DVEP9X",
+      "KPVS1D",
+      "GZRK0S",
+      "E6T09Z"
+    ],
+    "negativeSign": "-"
+  }
+}
+```
+
+#### Step 3: Initialize Nano
+Read the `NanoOptions` from the configuration file to initialize `Nano`:
+
+```csharp
+using Microsoft.Extensions.Configuration;
 using Nzr.Nano;
 
-var characterSets = new[]
-{
-    "H9MQB682DXPG0YKUTFS17CN54J",
-    "TXMRD72S31Z6UEQ5K9B8F4NVHW",
-    // Add additional character sets as needed
-};
+// Build configuration
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
 
-var placeholderSets = new[]
-{
-    "V3WERZ",
-    "YPJ0GC",
-    // Add additional placeholder sets as needed
-};
+// Bind NanoOptions from configuration
+var nanoOptions = configuration.GetSection("NanoOptions").Get<NanoOptions>();
 
-var negativeSign = "-";
-
-// Initialize the Nano library
-Nano.Initialize(characterSets, placeholderSets, negativeSign);
+// Initialize Nano
+var nano = new Nano(nanoOptions);
 ```
 
-### Obfuscating Numbers
+---
 
-Once initialized, you can obfuscate numeric values using the `Obfuscate` method. You can optionally specify a key and a minimum length for the obfuscated value. Note: The `minLength` must be at least the length of the placeholder set. For example, if the placeholder set is "V3WERZ", `minLength` must be at least 6.
+## Nzr.Nano.Playground
 
+![Nzr.Nano.Playground](assets/playground.png)
+
+### Overview
+`Nzr.Nano.Playground` is a web-based application that allows developers to:
+
+- Generate and modify charsets.
+- Test obfuscation and deobfuscation methods interactively.
+
+### How to Use
+
+1. **Run the Playground**
+   - Open the `Nzr.Nano.Playground` project in your IDE.
+   - Build and run the project.
+   - Access the application in your browser (e.g., `http://localhost:5000`).
+
+2. **Generate Charsets**
+   - Click the "Generate Charsets" button to create a new set of character and placeholder sets.
+   - Copy the generated JSON from the "Charsets" textarea.
+
+3. **Apply Generated Charsets**
+   - Save the copied JSON to your `appsettings.json` file under the `NanoOptions` section.
+
+4. **Test Obfuscation and Deobfuscation**
+   - Use the obfuscation and deobfuscation sections to test your `NanoOptions` configuration.
+   - Input a key and number to obfuscate, or an obfuscated value to deobfuscate.
+
+---
+
+## Examples
+
+### Obfuscate a Number
 ```csharp
-var number = 12345L;
-var key = "MySecretKey";
-var minLength = 6;
-
-var obfuscated = Nano.Obfuscate(number, key, minLength);
-Console.WriteLine(obfuscated); // Example output: "YPJ3WE"
+var obfuscated = nano.Obfuscate("myKey", 12345);
+Console.WriteLine(obfuscated); // Output: Obfuscated value (depends on the charsets)
 ```
 
-### Deobfuscating Numbers
-
-To retrieve the original value, use the `Deobfuscate` method with the obfuscated value and the same key used during obfuscation:
-
+### Deobfuscate a Number
 ```csharp
-var deobfuscated = Nano.Deobfuscate(obfuscated, key);
-Console.WriteLine(deobfuscated); // Output: 12345
+var original = nano.Deobfuscate("myKey", obfuscated);
+Console.WriteLine(original); // Output: 12345
 ```
 
-### Handling Negative Numbers
+---
 
-Negative numbers are supported and will be prefixed with the configured negative sign during obfuscation:
+## Contributing
+Contributions are welcome! Feel free to submit issues or pull requests.
 
-```csharp
-var negativeNumber = -12345L;
-var obfuscatedNegative = Nano.Obfuscate(negativeNumber, key);
-var deobfuscatedNegative = Nano.Deobfuscate(obfuscatedNegative, key);
-
-Console.WriteLine(obfuscatedNegative); // Example: "-YPJ3WE"
-Console.WriteLine(deobfuscatedNegative); // Output: -12345
-```
-
-## Configuration Validation
-
-Nzr.Nano validates configurations during initialization to ensure integrity. The following scenarios will throw exceptions:
-
-1. Overlapping characters between character sets and placeholder sets.
-2. Invalid negative sign (must be a single character and not present in any character set).
-3. `minLength` smaller than the length of the placeholder set.
-
-Example of validation failure:
-
-```csharp
-var invalidCharacterSets = new[] { "H9M0B", "0KM7F" }; // Overlap in '0'
-var invalidNegativeSign = "--"; // Invalid negative sign
-
- // Throws ArgumentException
-Nano.Initialize(invalidCharacterSets, placeholderSets, invalidNegativeSign);
-```
-
-### Customizing Minimum Length
-
-```csharp
-var shortNumber = 42L;
-var minLength = 8;
-
-string obfuscated = Nano.Obfuscate(shortNumber, key, minLength);
-Console.WriteLine(obfuscated); // Obfuscated value with at least 8 characters
-```
-
-## Exception Handling
-
-Nzr.Nano throws detailed exceptions to help identify issues during obfuscation, deobfuscation, or configuration:
-
-- **ArgumentException**: Thrown for invalid configurations or obfuscation/deobfuscation errors.
-
-Example:
-
-```csharp
-try
-{
-    Nano.Deobfuscate("Invalid#Value", key);
-}
-catch (ArgumentException ex)
-{
-    Console.WriteLine(ex.Message);
-}
-```
+---
 
 ## License
+Nzr.Nano is licensed under the Apache License, Version 2.0, January 2004. You may obtain a copy of the License at:
 
-Nzr.Nano is licensed under the [Apache License 2.0](LICENSE).
+```
+http://www.apache.org/licenses/LICENSE-2.0
+```
