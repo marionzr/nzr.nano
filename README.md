@@ -1,3 +1,6 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/marionzr/nzr.nano)
+![NuGet Downloads](https://img.shields.io/nuget/dt/nzr.nano)
+
 # Nzr.Nano
 
 Nzr.Nano is a lightweight and configurable library for obfuscating and deobfuscating numeric values. This project includes three key components:
@@ -99,6 +102,16 @@ var nanoOptions = configuration.GetSection("NanoOptions").Get<NanoOptions>();
 Nano.Initialze(nanoOptions);
 ```
 
+
+#### Step 4: Obfuscate and Deobfuscate numbers
+```csharp
+var obfuscated = nano.Obfuscate("myKey", 12345);
+Console.WriteLine(obfuscated); // Output: Obfuscated value (depends on the charsets)
+
+var original = nano.Deobfuscate("myKey", obfuscated);
+Console.WriteLine(original); // Output: 12345
+```
+
 ---
 
 ## Nzr.Nano.Playground
@@ -133,17 +146,7 @@ Nano.Initialze(nanoOptions);
 
 ## Examples
 
-### Obfuscate a Number
-```csharp
-var obfuscated = nano.Obfuscate("myKey", 12345);
-Console.WriteLine(obfuscated); // Output: Obfuscated value (depends on the charsets)
-```
-
-### Deobfuscate a Number
-```csharp
-var original = nano.Deobfuscate("myKey", obfuscated);
-Console.WriteLine(original); // Output: 12345
-```
+Check Nzr.Nano.Demo project for examples on how to use the Nzr.Nano library.
 
 ---
 
