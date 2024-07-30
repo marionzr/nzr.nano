@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Title>Nzr.Nano.Demo</Title>
+    <Copyright>Copyright https://github.com/marionzr</Copyright>
+    <RepositoryUrl>https://github.com/marionzr/nzr.nano</RepositoryUrl>
+    <Version>1.0.0.0</Version>
+    <Company>marionzr</Company>
+    <Authors>marionzr</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nzr.Nano\Nzr.Nano.csproj" />
+  </ItemGroup>
+
+</Project>
