@@ -66,7 +66,7 @@ static void GetProductById(List<IProduct> products, WebApplication app)
 {
     app.MapGet("/api/products/{id}", (string id) =>
     {
-        var internalId = id.Deobfuscate<IProduct>();
+        var internalId = id.Deobfuscate<IProduct>(); // Same as <code>Nano.Deobfuscate(id, "banana1");</code>
         var product = products.SingleOrDefault(p => p.Id == internalId);
 
         if (product is null)
@@ -84,7 +84,7 @@ static void GetProductCategoryById(List<IProduct> products, WebApplication app)
 {
     app.MapGet("/api/product-categories/{id}", (string id) =>
     {
-        var internalId = id.Deobfuscate<ProductCategory>();
+        var internalId = id.Deobfuscate<ProductCategory>(); // Same as <code>Nano.Deobfuscate(id, "apple1");</code>
         var productCategory = products.FirstOrDefault(p => p.Category?.Id == internalId)?.Category;
 
         if (productCategory is null)
@@ -102,7 +102,7 @@ static void DeleteProductById(List<IProduct> products, WebApplication app)
 {
     app.MapPost("/api/products/delete/{id}", (string id) =>
     {
-        var internalId = id.Deobfuscate<IProduct>();
+        var internalId = id.Deobfuscate<IProduct>(); // Same as <code>Nano.Deobfuscate(id, "banana1");</code>
         var product = products.SingleOrDefault(p => p.Id == internalId);
 
         if (product is null)

@@ -24,7 +24,7 @@ public class ProductCategoryOutput
     /// <param name="product">The internal product entity</param>
     public ProductCategoryOutput(ProductCategory productCategory)
     {
-        Id = productCategory.Id.Obfuscate<ProductCategory>();
+        Id = productCategory.Id.Obfuscate<ProductCategory>(); // Same as <code>Nano.Obfuscate(productCategory.Id, "apple1");</code>
         Name = productCategory.Name;
     }
 }

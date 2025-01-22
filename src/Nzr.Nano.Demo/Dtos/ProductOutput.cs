@@ -26,7 +26,7 @@ public class ProductOutput
     /// <param name="product">The internal product entity</param>
     public ProductOutput(IProduct product)
     {
-        Id = product.Id.Obfuscate<IProduct>();
+        Id = product.Id.Obfuscate<IProduct>(); // Same as <code>Nano.Obfuscate(product.Id, "banana1");</code>
         Name = product.Name;
         Category = product.Category != null ? new ProductCategoryOutput(product.Category) : null;
     }
