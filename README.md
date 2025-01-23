@@ -1,7 +1,10 @@
-![GitHub last commit](https://img.shields.io/github/last-commit/marionzr/nzr.nano)
-![NuGet Downloads](https://img.shields.io/nuget/dt/Nzr.Nano)
-
 # Nzr.Nano
+
+![NuGet Version](https://img.shields.io/nuget/v/Nzr.Nano)
+![NuGet Downloads](https://img.shields.io/nuget/dt/Nzr.Nano)
+![GitHub last commit](https://img.shields.io/github/last-commit/marionzr/nzr.nano)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/marionzr/nzr.nano/ci.yaml)
+![GitHub License](https://img.shields.io/github/license/marionzr/nzr.nano)
 
 Nzr.Nano is a lightweight and configurable library for obfuscating and deobfuscating numeric values effortlessly. Whether you're protecting sensitive data like IDs, transaction numbers, or other numeric identifiers, Nzr.Nano offers a clean, intuitive API that integrates seamlessly with any .NET application.
 

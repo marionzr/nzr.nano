@@ -56,7 +56,6 @@ jobs:
           -p:RepositoryUrl="https://github.com/marionzr/nzr.nano" \
           -o packages
 
-
       - name: Publish NuGet package
         run: |
           # Push the generated NuGet package to NuGet.org using the API key
