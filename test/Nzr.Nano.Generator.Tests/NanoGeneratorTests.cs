@@ -21,7 +21,7 @@ public class NanoGeneratorTests
 
         var settingsJson = JsonSerializer.Serialize(settings, _options);
 
-        settingsJson.Should().ContainAll("nanoOptions", "characterSets", "placeHolderCharSets", "negativeSign");
+        settingsJson.Should().ContainAll("NanoOptions", "CharacterSets", "PlaceHolderCharSets", "NegativeSign");
     }
 
     /// <summary>
